@@ -81,12 +81,15 @@ class Maze:
         return size
 
     def next_room_char(self) -> str:
-        self.room_char = chr(ord(self.room_char) + 1)
+        c = ord(self.room_char) + 1
+        if c > 122:
+            c = 65
+        self.room_char = chr(c)
         return self.room_char
 
 
 def main():
-    m = Maze()
+    m = Maze(25, 25)
     m.display()
     m.calc_room_sizes()
     m.display_visited()
