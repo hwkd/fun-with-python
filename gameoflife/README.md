@@ -11,5 +11,4 @@ For a space that is empty or unpopulated:
 
 ## Demo
 
-https://github.com/hwkd/gameoflife/assets/34149781/eb6f7d5c-cff8-4d84-a6ec-5f600b44926f
-
+https://github.com/hwkd/python-practice/assets/34149781/8276f78e-dc3f-47c5-a824-1db241880648
