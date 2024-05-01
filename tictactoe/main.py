@@ -7,7 +7,7 @@ EMPTY = " "
 
 
 class Game:
-    symbols = ["O", "X"]
+    symbols: list[str] = ["O", "X"]
 
     def __init__(self) -> None:
         self.board = []
@@ -16,7 +16,7 @@ class Game:
             for j in range(3):
                 self.board[i].append(EMPTY)
 
-    def start(self):
+    def start(self) -> None:
         self.display()
         turn = 1
         gameover = False
@@ -29,7 +29,7 @@ class Game:
             gameover, winner = self.is_gameover()
         print(f"Winner: {winner}")
 
-    def display(self):
+    def display(self) -> None:
         rep = ""
         for i in range(3):
             for j in range(3):
@@ -59,7 +59,7 @@ class Game:
                 else:
                     print("Invalid move. Place between 0 and 8.")
 
-    def place(self, symbol, move):
+    def place(self, symbol: str, move: tuple[int, int]):
         i, j = move 
         self.board[i][j] = symbol
 
@@ -87,6 +87,7 @@ class Game:
             return True, b[0][0]
         if b[2][0] == b[1][1] == b[0][2] != EMPTY:
             return True, b[2][0]
+
         return full, None
 
 def main():

@@ -10,21 +10,23 @@ PIECE = "\u25FE"
 
 
 class Board:
-    board = []
+    num_of_cols: int
+    num_of_rows: int
+    board: list[list[int]] = []
 
     def __init__(self, cols: int = 20, rows: int = 20) -> None:
         self.num_of_cols = cols
         self.num_of_rows = rows
         self.init_board(self.board)
-        self.randomise()
+        self.place_pieces_randomly()
 
-    def init_board(self, board) -> None:
+    def init_board(self, board: list[list[str]]) -> None:
         for i in range(self.num_of_cols):
             board.append([])
             for _ in range(self.num_of_rows):
                 board[i].append(EMPTY_PIECE)
 
-    def randomise(self) -> None:
+    def place_pieces_randomly(self) -> None:
         for i in range(self.num_of_cols):
             for j in range(self.num_of_rows):
                 r = random.randint(0, 2)
@@ -33,7 +35,7 @@ class Board:
                 else:
                     self.board[i][j] = PIECE
 
-    def display(self):
+    def display(self) -> None:
         for i in range(self.num_of_cols):
             if i == 0:
                 print("Conway's Game of Life:")
@@ -43,7 +45,7 @@ class Board:
                 print(self.board[i][j], end="")
         print(end="\n\n")
 
-    def count_neighbours(self, row, col) -> int:
+    def count_neighbours(self, row: int, col: int) -> int:
         neighbours = 0
         for i in range(-1, 2):
             if row == 0:
@@ -66,7 +68,7 @@ class Board:
         return neighbours
 
     def run(self):
-        next_board = []
+        next_board: list[list[int]] = []
         self.init_board(next_board)
         for i in range(self.num_of_rows):
             for j in range(self.num_of_cols):
