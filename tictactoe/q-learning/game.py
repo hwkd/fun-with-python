@@ -15,11 +15,16 @@ class GameEnv:
         self.gameover = False
         self.winner = None
         self.board = [[EMPTY for _ in range(3)] for _ in range(3)]
+        self.legal_move = True
         return self.get_state()
 
     def make_move(self, position):
         i, j = divmod(position, 3)
-        self.board[i][j] = self.player
+        if self.board[i][j] != EMPTY:
+            self.legal_move = False
+        else:
+            self.legal_move = True
+            self.board[i][j] = self.player
         self.player = (self.player + 1) % 2
         self.gameover, self.winner = self.is_gameover()
         return self.get_state(), self.get_reward(), self.gameover
@@ -33,23 +38,30 @@ class GameEnv:
         return state - 1
 
     def get_reward(self):
+        # Heavily penalise illegal move.
+        if not self.legal_move:
+            return -1000
         if self.gameover:
             if self.winner is not None:
                 # +20 when winning, and -10 when losing.
-                return 20 if self.winner == 0 else -10
+                return 50 if self.winner == 0 else -100
             # -5 when ending in a draw.
             return -5
         # Every move has a cost of -1.
         return -1
 
     def get_random_move(self):
+        avail_moves = self.get_avail_moves()
+        i = np.random.randint(0, len(avail_moves))
+        return avail_moves[i]
+
+    def get_avail_moves(self):
         avail_moves = []
         for i in range(3):
             for j in range(3):
                 if self.board[i][j] == EMPTY:
                     avail_moves.append(i * 3 + j)
-        i = np.random.randint(0, len(avail_moves))
-        return avail_moves[i]
+        return avail_moves
 
     def is_gameover(self):
         b = self.board
@@ -83,4 +95,3 @@ class GameEnv:
             if i != 2:
                 rep += "---------\n"
         print(rep)
-
