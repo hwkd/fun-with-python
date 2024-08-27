@@ -34,8 +34,8 @@ class GameEnv:
         state = 0
         for i in range(3):
             for j in range(3):
-                state = state * 3 + self.board[i][j] + 1
-        return state - 1
+                state = state + (self.board[i][j] + 1) * 3 ** (i * 3 + j)
+        return state
 
     def get_reward(self):
         # Heavily penalise illegal move.
@@ -43,8 +43,8 @@ class GameEnv:
             return -1000
         if self.gameover:
             if self.winner is not None:
-                # +20 when winning, and -10 when losing.
-                return 50 if self.winner == 0 else -100
+                # +20 when winning, and -50 when losing.
+                return 10 if self.winner == 0 else -50
             # -5 when ending in a draw.
             return -5
         # Every move has a cost of -1.
