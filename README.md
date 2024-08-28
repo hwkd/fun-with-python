@@ -1,6 +1,6 @@
-# Python Practice
+# Fun with Python
 
-A set of trivial to moderately difficult problems solved with Python for fun and learning.
+A set of trivial programs I wrote in Python for fun and learning. I will keep adding more programs as I write them and they will gradually become more complex.
 
 ### [gameoflife](./gameoflife/)
 
